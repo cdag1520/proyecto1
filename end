@@ -1,0 +1,397 @@
+[1mdiff --git a/consultas.cs b/consultas.cs[m
+[1mnew file mode 100644[m
+[1mindex 0000000..63d8cc9[m
+[1m--- /dev/null[m
+[1m+++ b/consultas.cs[m
+[36m@@ -0,0 +1,240 @@[m
+[32m+[m[32m﻿using System;[m
+[32m+[m[32musing System.Collections.Generic;[m
+[32m+[m[32musing System.Linq;[m
+[32m+[m[32musing System.Text;[m
+[32m+[m[32musing System.Threading.Tasks;[m
+[32m+[m[32musing System.Data.SqlClient;[m
+[32m+[m[32musing System.Data;[m
+[32m+[m
+[32m+[m[32mnamespace proyecto1[m
+[32m+[m[32m{[m
+[32m+[m[32m    class consultas[m
+[32m+[m[32m    {[m
+[32m+[m
+[32m+[m[41m        [m
+[32m+[m[41m       [m
+[32m+[m[32m        private SqlConnection cn = null;[m
+[32m+[m[32m        private SqlCommand cmd = null;[m
+[32m+[m[32m        private SqlDataReader reader;[m
+[32m+[m[32m        private DataTable table = null;[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[41m       [m
+[32m+[m
+[32m+[m[32m        // consulta de ESTA_DETALLE[m
+[32m+[m
+[32m+[m[41m           [m
+[32m+[m[32m            /*[m
+[32m+[m[32m             esta funcion consulta la base de datos een la tabla esta_detalle*/[m
+[32m+[m[32m        public DataTable consultardetalle(string dato) {[m
+[32m+[m[32m            nombredetalle();[m
+[32m+[m[32m            string query = "SELECT * FROM ESTA_DETALLE WHERE DESTNRTA = '"+dato+"'";[m
+[32m+[m
+[32m+[m[32m            cn = pruebaconexion.conect();[m
+[32m+[m[32m            cn.Open();[m
+[32m+[m[32m            cmd = new SqlCommand(query, cn);[m
+[32m+[m[32m            reader = cmd.ExecuteReader();[m
+[32m+[m
+[32m+[m[32m            table.Load(reader);[m
+[32m+[m[41m            [m
+[32m+[m[32m            cn.Close();[m
+[32m+[m[32m            return table;[m
+[32m+[m[41m            [m
+[32m+[m[32m             }[m
+[32m+[m
+[32m+[m
+[32m+[m
+[32m+[m[32m        /*}[m
+[32m+[m[32m         esta funcion lo que hace es consultar la base de datos esta_encabezado*/[m
+[32m+[m[32m        // Consulta de ESTA_ENCABEZADO[m
+[32m+[m[32m        public DataTable consultar() {[m
+[32m+[m[41m            [m
+[32m+[m[32m            nombrecolummna();[m
+[32m+[m[32m            //string query = "SELECT FROM ESTA_ENCABEZADO";[m
+[32m+[m[32m            string query = "SELECT TOP 10 * FROM ESTA_ENCABEZADO";[m
+[32m+[m[32m            cn = pruebaconexion.conect();[m
+[32m+[m[32m            cn.Open();[m
+[32m+[m[41m            [m
+[32m+[m[32m            cmd = new SqlCommand(query,cn);[m
+[32m+[m[41m            [m
+[32m+[m[32m            reader = cmd.ExecuteReader();[m
+[32m+[m[32m            table.Load(reader);[m
+[32m+[m
+[32m+[m[32m            /* while (reader.Read()) {*/[m
+[32m+[m[32m            /*[m
+[32m+[m
+[32m+[m[32m                table.Rows.Add(new object[] { reader["ENC_ID"], reader["CESTNRTA"],[m
+[32m+[m[32m                reader["CESTNFAC"], reader["CESTFFAC"],  reader["CESTCCIC"],[m
+[32m+[m[32m                reader["CESTFLPA"], reader["CESTLCR1"], reader["CESTLCR2"],[m
+[32m+[m[32m                reader["CESTDIS1"], reader["CESTDIS2"], reader["CESTSMA1"],[m
+[32m+[m[32m                reader["CESTSMA2"], reader["CESTCRP1"], reader["CESTCRP2"],[m
+[32m+[m[32m                reader["CESTDBC1"], reader["CESTDBC2"], reader["CESTSCO1"],[m
+[32m+[m[32m                reader["CESTSCO2"], reader["CESTBON1"], reader["CESTBON2"],[m
+[32m+[m[32m                reader["CESTSSF1"], reader["CESTSSF2"], reader["CESTSNF1"],[m
+[32m+[m[32m                reader["CESTSNF2"], reader["CESTPMI1"], reader["CESTPMI2"],[m
+[32m+[m[32m                reader["CESTIVE1"], reader["CESTIVE2"], reader["CESTCVE1"],[m
+[32m+[m[32m                reader["CESTCVE2"], reader["CESTNOMB"], reader["CESTPROD"],[m
+[32m+[m[32m                reader["CESTDIR1"], reader["CESTDIR2"], reader["CESTDIR3"],[m
+[32m+[m[32m                reader["CESTDIR4"], reader["CESTMSG1"], reader["CESTMSG2"],[m
+[32m+[m[32m                reader["CESTMSG3"], reader["CESTMSG4"], reader["CESTMSG5"],[m
+[32m+[m[32m                reader["CESTZENV"], reader["CESTTEMP"], reader["CESTRNCE"],[m
+[32m+[m[32m                reader["CESTEMPR"], reader["CESTGEMP"], reader["CESTCTAB"],[m
+[32m+[m[32m                reader["CESTSPR1"], reader["CESTSPR2"], reader["CESTSPM1"],[m
+[32m+[m[32m                reader["CESTSPM2"], reader["ENCA_ESTATUS"], reader["ENCA_RUTA"]} );[m
+[32m+[m[32m        }[m
+[32m+[m[32m       cn.Close();*/[m
+[32m+[m[32m        reader.Close();[m
+[32m+[m[32m            cn.Close();[m
+[32m+[m[32m             return table;[m
+[32m+[m[41m            [m
+[32m+[m[32m        }[m
+[32m+[m[32m        /*[m
+[32m+[m[32m         estos son los nombres que se le asigna a la columnas del datagridview[m
+[32m+[m[32m             */[m
+[32m+[m[32m        public void nombredetalle() {[m
+[32m+[m[32m            table = new DataTable();[m
+[32m+[m[32m            table.Columns.Add("DET_ID");[m
+[32m+[m[32m            table.Columns.Add("DESTNRTA");[m
+[32m+[m[32m            table.Columns.Add("DESTNFAC");[m
+[32m+[m[32m            table.Columns.Add("DESTFFAC");[m
+[32m+[m[32m            table.Columns.Add("DESTFTRN");[m
+[32m+[m[32m            table.Columns.Add("DESTFPRO");[m
+[32m+[m[32m            table.Columns.Add("DESTCOMP");[m
+[32m+[m[32m            table.Columns.Add("DESTREFU");[m
+[32m+[m[32m            table.Columns.Add("DESTDESC");[m
+[32m+[m[32m            table.Columns.Add("DESTMONE");[m
+[32m+[m[32m            table.Columns.Add("DESTVRTR");[m
+[32m+[m[32m            table.Columns.Add("DESTCDTR");[m
+[32m+[m[32m            table.Columns.Add("DESTTITR");[m
+[32m+[m[32m            table.Columns.Add("DESTNCOM");[m
+[32m+[m[32m            table.Columns.Add("DESTCATC");[m
+[32m+[m[32m            table.Columns.Add("DESTNAUT");[m
+[32m+[m[32m            table.Columns.Add("DESTVRPC");[m
+[32m+[m[32m            table.Columns.Add("DESTNCDI");[m
+[32m+[m[32m            table.Columns.Add("DESTNCRE");[m
+[32m+[m[32m            table.Columns.Add("DESTESTA");[m
+[32m+[m[32m            table.Columns.Add("DESTFREV");[m
+[32m+[m[32m            table.Columns.Add("DESTOFIC");[m
+[32m+[m[32m            table.Columns.Add("DESTCDPR");[m
+[32m+[m[32m            table.Columns.Add("DESTORM");[m
+[32m+[m[32m            table.Columns.Add("DESTTAPL");[m
+[32m+[m[32m            table.Columns.Add("DESTCIPA");[m
+[32m+[m[32m            table.Columns.Add("BLANCO");[m
+[32m+[m[32m            }[m
+[32m+[m
+[32m+[m[32m        /*[m
+[32m+[m[32m         estos son los nombres que se le asigna a la columnas del datagridview[m
+[32m+[m[32m             */[m
+[32m+[m[32m        public void nombrecolummna()[m
+[32m+[m[32m        {[m
+[32m+[m[32m            table = new DataTable();[m
+[32m+[m
+[32m+[m[32m            table.Columns.Add("ENC_ID");[m
+[32m+[m[32m            table.Columns.Add("CESTNRTA");[m
+[32m+[m[32m            table.Columns.Add("CESTNFAC");[m
+[32m+[m[32m            table.Columns.Add("CESTFFAC");[m
+[32m+[m[32m            table.Columns.Add("CESTCCIC");[m
+[32m+[m[32m            table.Columns.Add("CESTFLPA");[m
+[32m+[m[32m            table.Columns.Add("CESTLCR1");[m
+[32m+[m[32m            table.Columns.Add("CESTLCR2");[m
+[32m+[m[32m            table.Columns.Add("CESTDIS1");[m
+[32m+[m[32m            table.Columns.Add("CESTDIS2");[m
+[32m+[m[32m            table.Columns.Add("CESTSMA1");[m
+[32m+[m[32m            table.Columns.Add("CESTSMA2");[m
+[32m+[m[32m            table.Columns.Add("CESTCRP1");[m
+[32m+[m[32m            table.Columns.Add("CESTCRP2");[m
+[32m+[m[32m            table.Columns.Add("CESTDBC1");[m
+[32m+[m[32m            table.Columns.Add("CESTDBC2");[m
+[32m+[m[32m            table.Columns.Add("CESTSCO1");[m
+[32m+[m[32m            table.Columns.Add("CESTSCO2");[m
+[32m+[m[32m            table.Columns.Add("CESTBON1");[m
+[32m+[m[32m            table.Columns.Add("CESTBON2");[m
+[32m+[m[32m            table.Columns.Add("CESTSSF1");[m
+[32m+[m[32m            table.Columns.Add("CESTSSF2");[m
+[32m+[m[32m            table.Columns.Add("CESTSNF1");[m
+[32m+[m[32m            table.Columns.Add("CESTSNF2");[m
+[32m+[m[32m            table.Columns.Add("CESTPMI1");[m
+[32m+[m[32m            table.Columns.Add("CESTPMI2");[m
+[32m+[m[32m            table.Columns.Add("CESTIVE1");[m
+[32m+[m[32m            table.Columns.Add("CESTIVE2");[m
+[32m+[m[32m            table.Columns.Add("CESTCVE1");[m
+[32m+[m[32m            table.Columns.Add("CESTCVE2");[m
+[32m+[m[32m            table.Columns.Add("CESTNOMB");[m
+[32m+[m[32m            table.Columns.Add("CESTPROD");[m
+[32m+[m[32m            table.Columns.Add("CESTDIR1");[m
+[32m+[m[32m            table.Columns.Add("CESTDIR2");[m
+[32m+[m[32m            table.Columns.Add("CESTDIR3");[m
+[32m+[m[32m            table.Columns.Add("CESTDIR4");[m
+[32m+[m[32m            table.Columns.Add("CESTMSG1");[m
+[32m+[m[32m            table.Columns.Add("CESTMSG2");[m
+[32m+[m[32m            table.Columns.Add("CESTMSG3");[m
+[32m+[m[32m            table.Columns.Add("CESTMSG4");[m
+[32m+[m[32m            table.Columns.Add("CESTMSG5");[m
+[32m+[m[32m            table.Columns.Add("CESTZENV");[m
+[32m+[m[32m            table.Columns.Add("CESTTEMP");[m
+[32m+[m[32m            table.Columns.Add("CESTRNCE");[m
+[32m+[m[32m            table.Columns.Add("CESTEMPR");[m
+[32m+[m[32m            table.Columns.Add("CESTGEMP");[m
+[32m+[m[32m            table.Columns.Add("CESTCTAB");[m
+[32m+[m[32m            table.Columns.Add("CESTSPR1");[m
+[32m+[m[32m            table.Columns.Add("CESTSPR2");[m
+[32m+[m[32m            table.Columns.Add("CESTSPM1");[m
+[32m+[m[32m            table.Columns.Add("CESTSPM2");[m
+[32m+[m[32m            table.Columns.Add("ENCA_ESTATUS");[m
+[32m+[m[32m            table.Columns.Add("ENCA_RUTA");[m
+[32m+[m[41m           [m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m        //consultas base de datos2 tabla tbl cabecera tc[m
+[32m+[m[32m        public DataTable consultabd2() {[m
+[32m+[m[32m            nombrebd2();[m
+[32m+[m[32m            string query = "SELECT * FROM TBL_CABECERA_EST_TC";[m
+[32m+[m
+[32m+[m[32m            cn = conexion.conectar();[m
+[32m+[m[32m            cn.Open();[m
+[32m+[m[32m            cmd = new SqlCommand(query, cn);[m
+[32m+[m[32m            reader = cmd.ExecuteReader();[m
+[32m+[m[32m            table.Load(reader);[m
+[32m+[m[41m            [m
+[32m+[m[32m            cn.Close();[m
+[32m+[m[32m            return table;[m
+[32m+[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        //Consulta tabla tbl detalles[m
+[32m+[m[32m        public DataTable consultatbldetalle() {[m
+[32m+[m[32m            nombretbldetalles();[m
+[32m+[m[32m            string query = "SELECT * FROM TBL_DETALLE_EST_TC";[m
+[32m+[m[32m            cn = conexion.conectar();[m
+[32m+[m[32m            cn.Open();[m
+[32m+[m
+[32m+[m[32m            cmd = new SqlCommand(query, cn);[m
+[32m+[m[32m            reader = cmd.ExecuteReader();[m
+[32m+[m[32m            table.Load(reader);[m
+[32m+[m
+[32m+[m[32m            cn.Close();[m
+[32m+[m[32m            return table;[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        /*[m
+[32m+[m[32m         estos son los nombres que se le asigna a la columnas del datagridview[m
+[32m+[m[32m             */[m
+[32m+[m[32m        public void nombretbldetalles() {[m
+[32m+[m[32m            table = new DataTable();[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m[32m        /*[m
+[32m+[m[32m         estos son los nombres que se le asigna a la columnas del datagridview[m
+[32m+[m[32m             */[m
+[32m+[m[32m        public void nombrebd2() {[m
+[32m+[m[32m            table = new DataTable();[m
+[32m+[m[41m            [m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m    }[m
+[32m+[m
+[1mdiff --git a/registrar.cs b/registrar.cs[m
+[1mnew file mode 100644[m
+[1mindex 0000000..02b903c[m
+[1m--- /dev/null[m
+[1m+++ b/registrar.cs[m
+[36m@@ -0,0 +1,145 @@[m
+[32m+[m[32m﻿using System;[m
+[32m+[m[32musing System.Collections.Generic;[m
+[32m+[m[32musing System.Linq;[m
+[32m+[m[32musing System.Text;[m
+[32m+[m[32musing System.Threading.Tasks;[m
+[32m+[m[32musing System.Data.Sql;[m
+[32m+[m[32musing System.Data.SqlClient;[m
+[32m+[m[32musing System.Windows.Forms;[m
+[32m+[m
+[32m+[m[32mnamespace proyecto1[m
+[32m+[m[32m{[m
+[32m+[m[32m    class registrar[m
+[32m+[m[32m    {[m
+[32m+[m[32m        SqlConnection cn;[m
+[32m+[m[32m        SqlCommand cmd;[m
+[32m+[m[41m        [m
+[32m+[m
+[32m+[m[32m        public bool insertar(string[] data)[m
+[32m+[m[32m        {[m
+[32m+[m
+[32m+[m[32m            string query = "INSERT INTO TBL_CABECERA_EST_TC (C_NO_TARJETA," +[m
+[32m+[m[32m                "C_NO_FACTURACION," +[m
+[32m+[m[32m                "c_FECHA_FACTURA," +[m
+[32m+[m[32m                "C_CODIGO_CLICLO," +[m
+[32m+[m[32m                "C_FECHA_LIMITE_PAGO," +[m
+[32m+[m[32m                "C_LIMITE_CREDITO_RD," +[m
+[32m+[m[32m                "C_LIMITE_CREDITO_US," +[m
+[32m+[m[32m                "C_SALDO_ANTERIOR_RD," +[m
+[32m+[m[32m                "C_SALDO_ANTERIOR_US," +[m
+[32m+[m[32m                "C_DISPONIBLE_RD," +[m
+[32m+[m[32m                "C_DISPONIBLE_US," +[m
+[32m+[m[32m                "C_CRED_PAGO_RD," +[m
+[32m+[m[32m                "C_CRED_PAGO_US," +[m
+[32m+[m[32m                "C_DEB_COMPRA_RD," +[m
+[32m+[m[32m                "C_DEB_COMPRA_US," +[m
+[32m+[m[32m                "C_SALDO_CORTE_RD," +[m
+[32m+[m[32m                "C_SALDO_CORTE_US," +[m
+[32m+[m[32m                "C_BONIFICABLE_RD," +[m
+[32m+[m[32m                "C_BONIFICABLE_US," +[m
+[32m+[m[32m                "C_SALDO_S_FINANCIA_RD," +[m
+[32m+[m[32m                "C_SALDO_S_FINANCIA_US," +[m
+[32m+[m[32m                "C_SALDO_N_FINANCIA_RD," +[m
+[32m+[m[32m                "C_SALDO_N_FINANCIA_US," +[m
+[32m+[m[32m                "C_PAGO_MINIMO_RD," +[m
+[32m+[m[32m                "C_PAGO_MINIMO_US," +[m
+[32m+[m[32m                "C_IMPORTE_VENC_RD," +[m
+[32m+[m[32m                "C_IMPORTE_VENC_US," +[m
+[32m+[m[32m                "C_CUOTA_VENC_RD," +[m
+[32m+[m[32m                "C_CUOTA_VENC_US," +[m
+[32m+[m[32m                "C_NOMBRE_CLEINTE," +[m
+[32m+[m[32m                "C_PRODUCTO," +[m
+[32m+[m[32m                "C_DIR01," +[m
+[32m+[m[32m                "C_DIR02," +[m
+[32m+[m[32m                "C_DIR03," +[m
+[32m+[m[32m                "C_DIR04," +[m
+[32m+[m[32m                "C_MSJ01," +[m
+[32m+[m[32m                "C_MSJ02," +[m
+[32m+[m[32m                "C_MSJ03," +[m
+[32m+[m[32m                "C_MSJ04," +[m
+[32m+[m[32m                "C_MSJ05," +[m
+[32m+[m[32m                "C_ZONA_ENV," +[m
+[32m+[m[32m                "C_TARJETA_EMPRESA," +[m
+[32m+[m[32m                "C_RNC_EMPRESA," +[m
+[32m+[m[32m                "C_NOMBRE_EMPRESA," +[m
+[32m+[m[32m                "C_GRUPO_EMPRESA," +[m
+[32m+[m[32m                "C_CUENTA_BANCARIA," +[m
+[32m+[m[32m                "C_SALDO_PROM1_RD," +[m
+[32m+[m[32m                "C_SALDO_PROM1_US," +[m
+[32m+[m[32m                "C_SALDO_PROM2_RD," +[m
+[32m+[m[32m                "C_SALDO_PROM2_US)VALUES ('" + data[0] + "', '" + data[1] + "', '" + Convert.ToDateTime(data[2]).ToString("yyyy-MM-dd") + "', '" + data[3] + "', '" + Convert.ToDateTime(data[4]).ToString("yyyy-MM-dd") + "', '" + data[5] + "', '" + data[6] + "', '" + data[7] + "', '" + data[8] + "', '" + data[9] + "', '" + data[10] + "', '" + data[11] + "', '" + data[12] + "', '" + data[13] + "', '" + data[14] + "', '" + data[15] + "', '" + data[16] + "', '" + data[17] + "', '" + data[18] + "', '" + data[19] + "', '" + data[20] + "', '" + data[21] + "', '" + data[22] + "', '" + data[23] + "', '" + data[24] + "', '" + data[25] + "', '" + data[26] + "', '" + data[27] + "', '" + data[28] + "', '" + data[29] + "', '" + data[30] + "', '" + data[31] + "', '" + data[32] + "', '" + data[33] + "', '" + data[34] + "', '" + data[35] + "', '" + data[36] + "', '" + data[37] + "', '" + data[38] + "', '" + data[39] + "', '" + data[40] + "', '" + data[41] + "', '" + data[42] + "', '" + data[43] + "', '" + data[44] + "', '" + data[45] + "', '" + data[46] + "', '" + data[47] + "', '" + data[48] + "','"+data[49]+"');";[m
+[32m+[m[32m           // MessageBox.Show(query);[m
+[32m+[m[32m            cn = conexion.conectar();[m
+[32m+[m[32m            cn.Open();[m
+[32m+[m
+[32m+[m[32m            cmd = new SqlCommand(query, cn);[m
+[32m+[m
+[32m+[m[32m             cmd.ExecuteNonQuery();[m
+[32m+[m[32m            cn.Close();[m
+[32m+[m[32m            /*[m
+[32m+[m[32m            if (cmd.ExecuteNonQuery() > 0)[m
+[32m+[m[32m            {[m
+[32m+[m[32m                cn.Close();[m
+[32m+[m[32m                return true;[m
+[32m+[m
+[32m+[m
+[32m+[m[32m            }*/[m
+[32m+[m
+[32m+[m
+[32m+[m[32m            return true; ;[m
+[32m+[m[32m        }[m
+[32m+[m
+[32m+[m
+[32m+[m[32m        public bool insertardetalles_bd2(string[] data1)[m
+[32m+[m[32m        {[m
+[32m+[m[41m           [m
+[32m+[m[32m                formulariotbldetalles det = new formulariotbldetalles();[m
+[32m+[m
+[32m+[m
+[32m+[m[32m                string query = "INSERT INTO TBL_DETALLE_EST_TC(D_NO_TARJETA," +[m
+[32m+[m[32m                    "D_NO_FACTURTACION," +[m
+[32m+[m[32m                    "D_FECHA_FACTURACION," +[m
+[32m+[m[32m                    "D_FECHA_TRANS," +[m
+[32m+[m[32m                    "D_FECHA_PROC," +[m
+[32m+[m[32m                    "D_COMPROBANTE," +[m
+[32m+[m[32m                    "D_REFERENCIA_UNIVERSAL," +[m
+[32m+[m[32m                    "D_DESCRIPCION," +[m
+[32m+[m[32m                    "D_MONEDA," +[m
+[32m+[m[32m                    "D_VALOR_TRANSACCION," +[m
+[32m+[m[32m                    "D_CODIGO_TRANSACCION," +[m
+[32m+[m[32m                    "D_TIPO_TRANSCCION," +[m
+[32m+[m[32m                    "D_NO_COMERCIO," +[m
+[32m+[m[32m                    "D_CATEGORIA_COMERCIO," +[m
+[32m+[m[32m                    "D_NO_AUTORIZACION," +[m
+[32m+[m[32m                    "D_VALOR_PRIMERA_CUOTA," +[m
+[32m+[m[32m                    "D_NO_CUOTA_DIF," +[m
+[32m+[m[32m                    "D_NO_CUOTA_REF," +[m
+[32m+[m[32m                    "D_EST_TRANSACCION," +[m
+[32m+[m[32m                    "D_FECHA_REVERSION," +[m
+[32m+[m[32m                    "D_OFICINA," +[m
+[32m+[m[32m                    "D_CODIGO_PRODUCTO," +[m
+[32m+[m[32m                    "D_ORIGEN_MOVIMIENTO," +[m
+[32m+[m[32m                    "D_TIPO_APPLICACION," +[m
+[32m+[m[32m                    "D_CIUDAD_PAIS) VALUES(" +data1[0] + ",'" + data1[1] + "','" + Convert.ToDateTime(data1[2]).ToString("yyyy-MM-dd") + "','" + Convert.ToDateTime(data1[3]).ToString("yyyy-MM-dd") + "','" +Convert.ToDateTime(data1[4]).ToString("yyyy-MM-dd") + "','" + data1[5] + "','" + data1[6] + "','" + data1[7] + "','" + data1[8] + "','" + data1[9] + "','" + data1[10] + "','" + data1[11] + "','" + data1[12] + "','" + data1[13] + "','" + data1[14] + "','" + data1[15] + "','" + data1[16] + "','" + data1[17] + "','" + data1[18] + "','" +Convert.ToDateTime(data1[19]).ToString("yyyy-MM-dd") + "','" + data1[20] + "','" + data1[21] + "','" + data1[22] + "','" + data1[23] + "','" + data1[24] + "')";[m
+[32m+[m[32m                cn = conexion.conectar();[m
+[32m+[m[32m                cn.Open();[m
+[32m+[m[32m                cmd = new SqlCommand(query, cn);[m
+[32m+[m
+[32m+[m[32m                cmd.ExecuteNonQuery();[m
+[32m+[m[32m                /*[m
+[32m+[m[32m                if (cmd.ExecuteNonQuery() > 0) {[m
+[32m+[m[32m                    cn.Close();[m
+[32m+[m[32m                    return true;[m
+[32m+[m[32m                }[m
+[32m+[m[32m                */[m
+[32m+[m[32m                cn.Close();[m
+[32m+[m[32m                return true;[m
+[32m+[m[41m           [m
+[32m+[m
+[32m+[m
+[32m+[m[32m            }[m
+[32m+[m[41m            [m
+[32m+[m
+[32m+[m[41m       [m
+[32m+[m[32m    }[m
+[32m+[m[32m}[m
